@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProAgil.WebAPI", "ProAgil.WebAPI\ProAgil.WebAPI.csproj", "{1C102BEF-35AF-435E-820A-22CB204EB5B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProAgil.WebAPI", "ProAgil.WebAPI\ProAgil.WebAPI.csproj", "{1C102BEF-35AF-435E-820A-22CB204EB5B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProAgil.Domain", "ProAgil.Domain\ProAgil.Domain.csproj", "{B6533CCB-F004-4E6A-91B0-9B8EC0C8F34E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProAgil.Repository", "ProAgil.Repository\ProAgil.Repository.csproj", "{D0B7477E-00F6-4BDC-B470-32FC7D427A6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{1C102BEF-35AF-435E-820A-22CB204EB5B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C102BEF-35AF-435E-820A-22CB204EB5B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C102BEF-35AF-435E-820A-22CB204EB5B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6533CCB-F004-4E6A-91B0-9B8EC0C8F34E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6533CCB-F004-4E6A-91B0-9B8EC0C8F34E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6533CCB-F004-4E6A-91B0-9B8EC0C8F34E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6533CCB-F004-4E6A-91B0-9B8EC0C8F34E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0B7477E-00F6-4BDC-B470-32FC7D427A6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0B7477E-00F6-4BDC-B470-32FC7D427A6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0B7477E-00F6-4BDC-B470-32FC7D427A6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0B7477E-00F6-4BDC-B470-32FC7D427A6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
