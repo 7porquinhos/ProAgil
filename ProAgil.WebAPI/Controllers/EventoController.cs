@@ -74,7 +74,7 @@ namespace ProAgil.WebAPI.Controllers
                 if (await _proAgil.SaveChangesAsync())
                     return Created($"/api/evento/{model.Id}", model);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados Falhou");
             }

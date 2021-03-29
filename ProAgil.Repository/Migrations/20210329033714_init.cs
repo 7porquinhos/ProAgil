@@ -19,7 +19,7 @@ namespace ProAgil.Repository.Migrations
                     QtdPessoas = table.Column<int>(type: "INTEGER", nullable: false),
                     ImagemUrl = table.Column<string>(type: "TEXT", nullable: true),
                     Telefone = table.Column<string>(type: "TEXT", nullable: true),
-                    Email = table.Column<int>(type: "INTEGER", nullable: false)
+                    Email = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,7 +47,8 @@ namespace ProAgil.Repository.Migrations
                 name: "Lotes",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Nome = table.Column<string>(type: "TEXT", nullable: true),
                     Preco = table.Column<decimal>(type: "TEXT", nullable: false),
                     DataInicio = table.Column<DateTime>(type: "TEXT", nullable: true),

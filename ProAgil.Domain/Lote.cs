@@ -8,7 +8,7 @@ namespace ProAgil.Domain
 {
     public class Lote
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Nome { get; set; }
 
@@ -22,6 +22,6 @@ namespace ProAgil.Domain
 
         public int EventoId { get; set; }
 
-        public Evento Evento { get; set; }
+        public Evento Evento { get; }
     }
 }

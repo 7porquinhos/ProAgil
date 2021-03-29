@@ -21,7 +21,7 @@ namespace ProAgil.Domain
 
         public string Telefone { get; set; }
 
-        public int Email { get; set; }
+        public string Email { get; set; }
 
         public List<Lote> Lotes { get; set; }
 
