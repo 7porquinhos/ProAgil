@@ -31,6 +31,11 @@ namespace ProAgil.WebAPI
             services.AddDbContext<ProAgilContext>(
                 x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
                 );
+
+            services.AddScoped<IProAgilRepository, ProAgilRepository>();
+            services.AddScoped<IEventoRepository, EventoRepository>();
+            services.AddScoped<IPalestranteRepository, PalestranteRepository>();
+
             services.AddControllers();
             services.AddCors();
             services.AddSwaggerGen(c =>
