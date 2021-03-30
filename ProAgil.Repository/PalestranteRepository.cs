@@ -14,7 +14,8 @@ namespace ProAgil.Repository
 
         public PalestranteRepository(ProAgilContext context)
         {
-            this._context = context;
+            _context = context;
+            _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public async Task<Palestrante[]> GetAllPalestranteAsyncByName(string name,bool includeEventos = false)
@@ -29,7 +30,9 @@ namespace ProAgil.Repository
                     .ThenInclude(e => e.Evento);
             }
 
-            query = query.Where(p => p.Nome.ToLower().Contains(name.ToLower()));
+            query = query
+                .AsNoTracking()
+                .Where(p => p.Nome.ToLower().Contains(name.ToLower()));
 
             return await query.ToArrayAsync();
         }
@@ -46,8 +49,10 @@ namespace ProAgil.Repository
                     .ThenInclude(e => e.Evento);
             }
 
-            query = query.OrderBy(c => c.Nome)
-                         .Where(p => p.Id == PalestranteId);
+            query = query
+                .AsNoTracking()
+                .OrderBy(c => c.Nome)
+                .Where(p => p.Id == PalestranteId);
 
             return await query.FirstOrDefaultAsync();
         }

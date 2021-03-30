@@ -181,11 +181,9 @@ namespace ProAgil.Repository.Migrations
                         .WithMany("RedesSociais")
                         .HasForeignKey("EventoId");
 
-                    b.HasOne("ProAgil.Domain.Palestrante", "Palestrante")
+                    b.HasOne("ProAgil.Domain.Palestrante", null)
                         .WithMany("RedesSociais")
                         .HasForeignKey("PalestranteId");
-
-                    b.Navigation("Palestrante");
                 });
 
             modelBuilder.Entity("ProAgil.Domain.Evento", b =>

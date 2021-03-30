@@ -14,7 +14,8 @@ namespace ProAgil.Repository
 
         public EventoRepository(ProAgilContext context)
         {
-            this._context = context;
+            _context = context;
+            _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public async Task<Evento[]> GetAllEventoAsync(bool includePalestrantes = false)
@@ -30,7 +31,8 @@ namespace ProAgil.Repository
                     .ThenInclude(p => p.Palestrante);
             }
 
-            query = query.OrderByDescending(c => c.DataEvento);
+            query = query.AsNoTracking()
+                         .OrderByDescending(c => c.DataEvento);
 
             return await query.ToArrayAsync();
         }
@@ -48,7 +50,8 @@ namespace ProAgil.Repository
                     .ThenInclude(p => p.Palestrante);
             }
 
-            query = query.OrderByDescending(c => c.DataEvento)
+            query = query.AsNoTracking()
+                         .OrderByDescending(c => c.DataEvento)
                          .Where(c => c.Tema.ToLower().Contains(tema.ToLower()));
 
             return await query.ToArrayAsync();
@@ -67,7 +70,8 @@ namespace ProAgil.Repository
                     .ThenInclude(p => p.Palestrante);
             }
 
-            query = query.OrderByDescending(c => c.DataEvento)
+            query = query.AsNoTracking()
+                         .OrderByDescending(c => c.DataEvento)
                          .Where(c => c.Id == EventoId);
 
             return await query.FirstOrDefaultAsync();
