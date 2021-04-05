@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ProAgil.Repository;
+using ProAgil.WebAPI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +37,15 @@ namespace ProAgil.WebAPI
             services.AddScoped<IProAgilRepository, ProAgilRepository>();
             services.AddScoped<IEventoRepository, EventoRepository>();
             services.AddScoped<IPalestranteRepository, PalestranteRepository>();
+
+            // Auto Mapper Configurations
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfiles());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddControllers();
             services.AddCors();
