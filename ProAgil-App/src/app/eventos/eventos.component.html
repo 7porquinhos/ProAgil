@@ -1,3 +1,4 @@
+<app-titulo [titulo]="titulo"></app-titulo>
 <div class="d-flex">
   <div class="form-inline mr-auto">
     <div class="form-group mb-2">
@@ -40,7 +41,7 @@
     <td>{{evento.id}}</td>
     <td>{{evento.tema}}</td>
     <td>{{evento.local}}</td>
-    <td>{{evento.dataEvento | DateTimeFormatPipe}}</td>
+    <td>{{evento.dataEvento}}</td>
     <td>{{evento.qtdPessoas}}</td>
     <td>
       <div *ngIf="!evento.lotes.length">
@@ -140,14 +141,17 @@ role="dialog" aria-labelledby="dialog-sizes-name1">
 <div class="form-row">
   <div class="form-group col-md-3">
     <label>Qtd Pessoas</label>
-    <input type="text" class="form-control is-invalid" formControlName="qtdPessoas"
+    <input type="text" class="form-control" formControlName="qtdPessoas"
     [ngClass]="{'is-invalid': registerForm.get('qtdPessoas')?.errors
-    && registerForm.get('qtdPessoas')?.touched}" placeholder="Insira a qtd de Pessoas">
+    && registerForm.get('qtdPessoas')?.touched}" placeholder="Insira a quantidade">
     <div *ngIf="registerForm.get('qtdPessoas')?.hasError('required')
     && registerForm.get('qtdPessoas')?.touched" class="invalid-feedback">
     Qtd Pessoas é obrigatório.
-  </div>
-
+    </div>
+    <div *ngIf="registerForm.get('qtdPessoas')?.hasError('max')"
+    class="invalid-feedback">
+        Limite de no maximo 700 pessoas.
+    </div>
 </div>
 <div class="form-group col-md-9">
   <label>Imagem</label>
@@ -179,11 +183,11 @@ role="dialog" aria-labelledby="dialog-sizes-name1">
   <div *ngIf="registerForm.get('email')?.hasError('required')
   && registerForm.get('email')?.touched" class="invalid-feedback">
   Email é obrigatório.
-</div>
-<div *ngIf="registerForm.get('email')?.hasError('email')
-&& registerForm.get('email')?.touched" class="invalid-feedback">
-Digite um email valido.
-</div>
+  </div>
+  <div *ngIf="registerForm.get('email')?.hasError('email')"
+   class="invalid-feedback">
+  Digite um email valido.
+  </div>
 </div>
 </div>
 </form>
@@ -201,27 +205,27 @@ Digite um email valido.
 </div>
 
 <div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
-	<div class="modal-dialog modal-sm">
-  		<div class="modal-content">
-    		<div class="modal-header">
-      			<h4 class="modal-title pull-left">
-        			Deletando Evento
-      			</h4>
-      			<button type="button" class="close pull-right" (click)="confirm.hide()" aria-label="Close">
-        			<span aria-hidden="true">&times;</span>
-      			</button>
-    		</div>
-    		<div class="modal-body">
-      			<p>{{bodyDeletarEvento}}</p>
-    		</div>
-    		<div class="modal-footer btn-group d-flex">
-      			<button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
-        			CENCELAR
-      			</button>
-      			<button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
-          			DELETAR
-        		</button>
-    		</div>
-  		</div>
-	</div>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">
+          Deletando Evento
+        </h4>
+        <button type="button" class="close pull-right" (click)="confirm.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{bodyDeletarEvento}}</p>
+      </div>
+      <div class="modal-footer btn-group d-flex">
+        <button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
+          CENCELAR
+        </button>
+        <button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
+          DELETAR
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
