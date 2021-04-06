@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -22,6 +23,13 @@ export class EventoService {
 
    getEventoById(id: number): Observable<Evento> {
     return this.http.get<Evento>('${this.baseURL}/${id}');
+   }
+
+   postUpload(file: File, name: string){
+     const fileToUpload = <File>file[0];
+     const formData = new FormData;
+     formData.append('file', fileToUpload, name)
+    return this.http.post(this.baseURL+'upload', formData);
    }
 
    postEvento(evento: Evento) {

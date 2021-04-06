@@ -6,7 +6,9 @@ using ProAgil.Repository;
 using ProAgil.WebAPI.Dtos;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace ProAgil.WebAPI.Controllers
@@ -41,6 +43,36 @@ namespace ProAgil.WebAPI.Controllers
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados Falhou");
             }
+        }
+
+        [HttpPost("upload")]
+        public async Task<IActionResult> Upload()
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                var folderName = Path.Combine("Resources","Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                if (file.Length > 0)
+                {
+                    var filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
+                    var fullPath = Path.Combine(pathToSave, filename.Replace("\"", " ").Trim());
+
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                }
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados Falhou");
+            }
+
+            return BadRequest("Erro ao tentar realizar upload");
         }
 
         [HttpGet("{EventoId}")]
@@ -101,7 +133,7 @@ namespace ProAgil.WebAPI.Controllers
             try
             {
                 var evento = await _eventoRepository.GetEventoAsyncById(EventoId, false);
-                
+
                 if (evento == null) return NotFound();
 
                 _mapper.Map(model, evento);
@@ -109,7 +141,7 @@ namespace ProAgil.WebAPI.Controllers
                 _proAgil.Update(evento);
 
                 if (await _proAgil.SaveChangesAsync())
-                    return Created($"/api/evento/{model.Id}", _mapper.Map<EventoDto>(evento));;
+                    return Created($"/api/evento/{model.Id}", _mapper.Map<EventoDto>(evento)); ;
             }
             catch (Exception ex)
             {
