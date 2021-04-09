@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Evento } from '../_models/Evento';
@@ -14,6 +14,7 @@ export class EventoService {
   constructor(private http: HttpClient) {}
 
   getAllEvento(): Observable<Evento[]> {
+
    return this.http.get<Evento[]>(this.baseURL);
   }
 
@@ -29,7 +30,7 @@ export class EventoService {
      const fileToUpload = <File>file[0];
      const formData = new FormData;
      formData.append('file', fileToUpload, name)
-    return this.http.post(this.baseURL+'upload', formData);
+    return this.http.post(this.baseURL + 'upload', formData);
    }
 
    postEvento(evento: Evento) {
@@ -37,12 +38,12 @@ export class EventoService {
    }
 
    putEvento(evento: Evento) {
-    return this.http.put(this.baseURL +'?EventoId='+ evento.id, evento);
+    return this.http.put(this.baseURL + '?EventoId=' + evento.id, evento);
    }
 
    deleteEvento(id: number) {
     //return this.http.put(this.baseURL +'?EventoId='+ evento.id, evento);
-    return this.http.delete(this.baseURL+'?EventoId='+id);
+    return this.http.delete(this.baseURL + '?EventoId=' + id);
    }
 
 }
