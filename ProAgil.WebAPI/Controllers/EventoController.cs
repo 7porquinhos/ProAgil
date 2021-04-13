@@ -138,20 +138,24 @@ namespace ProAgil.WebAPI.Controllers
                 var idLotes = new List<int>();
                 var idRedesSociais = new List<int>();
 
-                model.Lotes.ForEach(item => idLotes.Add(item.Id));
-                model.RedesSociais.ForEach(item => idRedesSociais.Add(item.Id));
+                if(model.Lotes != null)
+                {
+                    model.Lotes.ForEach(item => idLotes.Add(item.Id));
+                    model.RedesSociais.ForEach(item => idRedesSociais.Add(item.Id));
 
-                var lotesDelete = evento.Lotes
-                    .Where(lote => !idLotes
-                    .Contains(lote.Id))
-                    .ToArray();
-                var RedesSociaisDelete = evento.RedesSociais
-                    .Where(redeSocial => !idRedesSociais
-                    .Contains(redeSocial.Id))
-                    .ToArray();
+                    var lotesDelete = evento.Lotes
+                        .Where(lote => !idLotes
+                        .Contains(lote.Id))
+                        .ToArray();
+                    var RedesSociaisDelete = evento.RedesSociais
+                        .Where(redeSocial => !idRedesSociais
+                        .Contains(redeSocial.Id))
+                        .ToArray();
 
-                if (lotesDelete.Length > 0) _proAgil.DeleteRange(lotesDelete);
-                if (RedesSociaisDelete.Length > 0) _proAgil.DeleteRange(RedesSociaisDelete);
+                    if (lotesDelete.Length > 0) _proAgil.DeleteRange(lotesDelete);
+                    if (RedesSociaisDelete.Length > 0) _proAgil.DeleteRange(RedesSociaisDelete);
+                }
+                
 
                 _mapper.Map(model, evento);
 
