@@ -26,6 +26,11 @@ namespace ProAgil.Repository
             _context.Remove(entity);
         }
 
+        public void DeleteRange<T>(T[] entity) where T : class
+        {
+            _context.RemoveRange(entity);
+        }
+
         public void Update<T>(T entity) where T : class
         {
             _context.Update(entity);
@@ -35,5 +40,6 @@ namespace ProAgil.Repository
         {
             return (await _context.SaveChangesAsync()) > 0;
         }
+
     }
 }

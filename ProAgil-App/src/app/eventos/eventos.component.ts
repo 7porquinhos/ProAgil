@@ -19,6 +19,7 @@ export class EventosComponent implements OnInit {
   titulo = 'Eventos';
 
   eventosFiltrados: Evento[];
+  imagemAtual = '';
   imagemLargura = 60;
   imagemAltura = 30;
   imagemMargem = 2;
@@ -54,6 +55,7 @@ export class EventosComponent implements OnInit {
 
   editarEvento(evento: Evento, template: any){
     this.modoSalvar = 'put';
+    this.imagemAtual = evento.imagemUrl;
     this.openModal(template);
     this.evento = Object.assign({}, evento);
     this.evento.imagemUrl = '';
@@ -71,7 +73,7 @@ export class EventosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.validation()
+    this.validation();
     this.getEventos();
   }
 
@@ -91,7 +93,7 @@ export class EventosComponent implements OnInit {
       tema: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       local: ['', Validators.required],
       dataEvento: ['', Validators.required],
-      imagemUrl: ['', Validators.required],
+      imagemUrl: [''],
       qtdPessoas: ['', [Validators.required, Validators.max(700)]],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]]
@@ -107,7 +109,6 @@ export class EventosComponent implements OnInit {
 
         this.eventoService.postEvento(this.evento).subscribe(
         (novoEvento: any) => {
-          console.log(novoEvento);
           template.hide();
           this.getEventos();
           this.toastr.success('Inserido com sucesso!');
@@ -123,13 +124,11 @@ export class EventosComponent implements OnInit {
 
         this.eventoService.putEvento(this.evento).subscribe(
         (novoEvento: any) => {
-          console.log(novoEvento);
           template.hide();
           this.getEventos();
           this.toastr.success('Atualizado com sucesso!');
         }, error => {
           this.toastr.error('Erro ao tentar Atualizar: ${error}');
-          console.log(error);
         }
       );
       }
@@ -138,9 +137,15 @@ export class EventosComponent implements OnInit {
   }
 
   uploadImagem(){
-    const nomeArquivo = this.evento.imagemUrl.split('\\', 3);
-    this.evento.imagemUrl = nomeArquivo[2];
-    this.eventoService.postUpload(this.file, nomeArquivo[2]).subscribe();
+    if(this.evento.imagemUrl.includes('\\')){
+      const nomeArquivo = this.evento.imagemUrl.split('\\', 3);
+      this.evento.imagemUrl = nomeArquivo[2];
+      this.eventoService.postUpload(this.file, nomeArquivo[2]).subscribe();
+    }
+    else{
+      this.evento.imagemUrl = this.imagemAtual;
+    }
+
   }
 
   onFileChange(event){
@@ -164,7 +169,6 @@ export class EventosComponent implements OnInit {
           this.toastr.success('Deletado com sucesso!');
         }, error => {
           this.toastr.error('Erro ao tentar deletar: ${error}');
-          console.log(error);
         }
     );
   }

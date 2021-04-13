@@ -9,8 +9,11 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxMaskModule } from 'ngx-mask'
+import { NgxCurrencyModule } from "ngx-currency";
 
-import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule, } from 'ngx-toastr';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
@@ -27,6 +30,7 @@ import { TituloComponent } from "./_shared/titulo/titulo.component";
 import { DateTimeFormatPipePipe } from './_helps/DateTimeFormatPipe.pipe';
 import { EventoService } from './_services/evento.service';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { EventoEditComponent } from './eventos/eventoEdit/eventoEdit.component';
 
 
 @NgModule({
@@ -41,7 +45,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
       DateTimeFormatPipePipe,
       UserComponent,
       LoginComponent,
-      RegistrationComponent
+      RegistrationComponent,
+      EventoEditComponent
    ],
   imports: [
     BrowserModule,
@@ -55,6 +60,9 @@ import { AuthInterceptor } from './auth/auth.interceptor';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
+    TabsModule.forRoot(),
+    NgxMaskModule.forRoot(),
+    NgxCurrencyModule,
     CommonModule,
     AppRoutingModule,
     HttpClientModule,
