@@ -138,7 +138,7 @@ namespace ProAgil.WebAPI.Controllers
                 var idLotes = new List<int>();
                 var idRedesSociais = new List<int>();
 
-                if(model.Lotes != null)
+                if(model.Lotes != null || model.RedesSociais != null)
                 {
                     model.Lotes.ForEach(item => idLotes.Add(item.Id));
                     model.RedesSociais.ForEach(item => idRedesSociais.Add(item.Id));
